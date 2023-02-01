@@ -1,4 +1,4 @@
-import {request, Request, Response} from "express";
+import {Request, Response} from "express";
 import userServices from "../services/UserServices";
 
 class UserController {
@@ -9,18 +9,19 @@ class UserController {
 
 
     }
-    login = async (req: Request, res: Response) => {
-        let user = await this.userServices.checkUser(req.body);
-        if(user){
-           //@ts-ignore
-            req.session.User = user;
-            res.redirect(301,'/home')
-        }else {
-            res.redirect(301,'/user/login');
 
-        }
+    register = async (req: Request, res: Response) => {
+        let user = await this.userServices.register(req.body);
+        res.status(201).json(user)
 
     }
+    login = async (req: Request, res: Response) => {
+        let response = await this.userServices.checkUser(req.body)
+        res.status(200).json(response)
+
+    }
+
 }
+
 
 export default new UserController();

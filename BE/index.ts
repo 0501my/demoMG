@@ -3,7 +3,7 @@ import {router} from "./src/routes/router";
 const app = express();
 import session from 'express-session'
 import bodyParser from "body-parser";
-import cors from "cors"
+import cors from "cors";
 import {AppDataSource} from "./src/data-source";
 AppDataSource.initialize().then(()=>{
     console.log('DB connect')
@@ -23,3 +23,4 @@ app.use(express.static('./public'))
 app.listen(3000,()=>{
     console.log('server is running http://localhost:3000/home')
 })
+

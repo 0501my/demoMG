@@ -6,15 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const UserServices_1 = __importDefault(require("../services/UserServices"));
 class UserController {
     constructor() {
+        this.register = async (req, res) => {
+            let user = await this.userServices.register(req.body);
+            res.status(201).json(user);
+        };
         this.login = async (req, res) => {
-            let user = await this.userServices.checkUser(req.body);
-            if (user) {
-                req.session.User = user;
-                res.redirect(301, '/home');
-            }
-            else {
-                res.redirect(301, '/user/login');
-            }
+            let response = await this.userServices.checkUser(req.body);
+            res.status(200).json(response);
         };
         this.userServices = UserServices_1.default;
     }

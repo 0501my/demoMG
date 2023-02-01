@@ -4,7 +4,7 @@ import {UserRouter} from "./user.router";
 import {categoryRouter} from "./category.router";
 export const router = Router();
 router.use('/products',ProductRouter);
-router.use('/users',UserRouter);
+router.use('/auth',UserRouter);
 router.use('/categories',categoryRouter)
 
 

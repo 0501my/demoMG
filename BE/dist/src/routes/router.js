@@ -7,6 +7,6 @@ const user_router_1 = require("./user.router");
 const category_router_1 = require("./category.router");
 exports.router = (0, express_1.Router)();
 exports.router.use('/products', product_router_1.ProductRouter);
-exports.router.use('/users', user_router_1.UserRouter);
+exports.router.use('/auth', user_router_1.UserRouter);
 exports.router.use('/categories', category_router_1.categoryRouter);
 //# sourceMappingURL=router.js.map
