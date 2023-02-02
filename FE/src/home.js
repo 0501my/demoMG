@@ -1,17 +1,21 @@
 // showHome()
 
 function showList() {
-    $.ajax({
-        type: 'GET',
-        url: 'http://localhost:3000/products',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + localStorage.getItem('token')
-        },
-        success: (products) => {
-            let html = ''
-            products.map(item => {
-                html += `<tr>
+    let token = localStorage.getItem('token');
+    if(token){
+        token = JSON.parse(token)
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:3000/products',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token.token
+            },
+            success: (products) => {
+                if(token.role === 'admin'){
+                    let html = ''
+                    products.map(item => {
+                        html += `<tr>
     <td>${item.id}</td>
     <td>${item.name}</td>
     <td>${item.price}</td>
@@ -21,14 +25,30 @@ function showList() {
     <td><button onclick="showFormEdit('${item.id}')">Edit</button></td>
     <td><button onclick="Remove('${item.id}')">Delete</button></td>
 </tr>
-`
-            })
-            $('#tbody').html(html)
-        }
-    })
+`})
+                    $('#tbody').html(html)
+                }else {
+                    let html = ''
+                    products.map(item => {
+                        html += `<tr>
+    <td>${item.id}</td>
+    <td>${item.name}</td>
+    <td>${item.price}</td>
+    <td><img src="${item.image}" style="height: 150px; width: 150px"></td>
+    <td>${item.category}</td>
+    <td>${item.nameCategory}</td>
+    <td><button onclick="showFormEdit('${item.id}')">Mua</button></td>
+</tr>
+`})
+                    $('#tbody').html(html)
+                }
+            }
+
+        })
+    }
+
 
 }
-
 
 function uploadImage(e) {
     let fbBucketName = 'images';

@@ -9,7 +9,7 @@ export const auth = (req,res,next)=>{
                 if(err){
                     res.status(403).json({
                         err : err.message,
-                        message : 'bạn không có quyền'
+                        message : 'bạn không có quyền truy cập'
                     })
                 }else {
                     req.decode = payload;

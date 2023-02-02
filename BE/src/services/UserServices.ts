@@ -28,11 +28,19 @@ class UserServices {
             } else {
                 let payload = {
                     idUser: userCheck.id,
-                    username: userCheck.username
+                    username: userCheck.username,
+                    role : userCheck.role
                 }
-              return jwt.sign(payload, SECRET, {
-                    expiresIn: 360000
+                let userRes = {
+                    idUser: userCheck.id,
+                    username: userCheck.username,
+                    role : userCheck.role,
+                    token : await jwt.sign(payload, SECRET, {
+                        expiresIn: 360000
                 })
+                }
+                console.log(userRes)
+                return userRes;
             }
         }
 

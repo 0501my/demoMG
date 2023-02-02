@@ -40,6 +40,9 @@ function showFormAdd() {
     getCategoriesCreate()
 }
 function Add() {
+    let token = localStorage.getItem('token');
+    if(token){
+        token = JSON.parse(token)
     let name = $('#name').val();
     let price = $('#price').val();
     let image = localStorage.getItem('image');
@@ -50,17 +53,17 @@ function Add() {
         image: image,
         category: category
     }
+
     $.ajax({
         type: 'POST',
         url: 'http://localhost:3000/products',
         data: JSON.stringify(product),
         headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + localStorage.getItem('token')
+            Authorization: 'Bearer ' + token.token
         },
-
         success: () => {
             showHome()
         }
     })
-}
+}}

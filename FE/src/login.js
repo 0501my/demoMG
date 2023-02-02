@@ -23,7 +23,7 @@ function Login(){
         },
         data: JSON.stringify(user),
         success: (token) => {
-            localStorage.setItem('token',token)
+            localStorage.setItem('token',JSON.stringify(token))
             showHome();
             showNav();
         }

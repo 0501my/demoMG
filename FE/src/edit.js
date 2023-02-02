@@ -1,13 +1,16 @@
 function showFormEdit(id) {
-    $.ajax({
-        type: 'GET',
-        url: `http://localhost:3000/products/${id}`,
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + localStorage.getItem('token')
-        },
-        success: (products) => {
-            $('#body').html(`
+   let token = localStorage.getItem('token');
+    if(token){
+        token = JSON.parse(token)
+        $.ajax({
+            type: 'GET',
+            url: `http://localhost:3000/products/${id}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token.token
+            },
+            success: (products) => {
+                $('#body').html(`
 <div class="container-fluid">
     <nav></nav>
     <div class="row justify-content-center">
@@ -46,13 +49,18 @@ function showFormEdit(id) {
         </div>
     </div>
 </div>`
-            )
-        }
-    })
-    getCategoriesCreate()
+                )
+            }
+        })
+        getCategoriesCreate()
+    }
+
 }
 
 function Edit(id) {
+   let token = localStorage.getItem('token');
+    if(token){
+        token = JSON.parse(token)
     let name = $('#name').val();
     let price = $('#price').val();
     let image = localStorage.getItem('image');
@@ -63,17 +71,17 @@ function Edit(id) {
         image: image,
         category: category
     }
+
     $.ajax({
         type: 'PUT',
         url: `http://localhost:3000/products/${id}`,
         data: JSON.stringify(product),
         headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + localStorage.getItem('token')
+            Authorization: 'Bearer ' + token.token
         },
-
         success: () => {
             showHome()
         }
     })
-}
+}}

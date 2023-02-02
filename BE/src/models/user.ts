@@ -8,5 +8,7 @@ id : number;
     username : string;
     @Column()
     password : string;
+    @Column({default : 'user'})
+    role : string;
 }
 
